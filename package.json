@@ -1,0 +1,24 @@
+{
+  "name": "movie_api",
+  "version": "1.0.0",
+  "description": "A simple Node.js project that demonstrates how to use built-in modules (`http`, `url`, and `fs`) to:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dosanjhkiran/movie_api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dosanjhkiran/movie_api/issues"
+  },
+  "homepage": "https://github.com/dosanjhkiran/movie_api#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0"
+  }
+}
