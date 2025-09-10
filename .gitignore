@@ -1,1 +1,2 @@
-printf "node_modules/\n.env\n.DS_Store\n" >> .gitignore
+node_modules/
+.DS_Store
