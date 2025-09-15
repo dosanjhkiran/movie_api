@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(morgan('common'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ---- Data defined BEFORE routes ----
+// ---- In-memory data 
 const topMovies = [{
         id: 1,
         title: 'Pathaan',
@@ -109,8 +109,90 @@ app.get('/', (req, res) => {
     res.send('Welcome to my Movies App!');
 });
 
+// Gets ALL movies
 app.get('/movies', (req, res) => {
     res.json(topMovies);
+});
+
+// Return a movie by title (case-insensitive)
+app.get('/movies/:title', (req, res) => {
+    const t = req.params.title.toLowerCase();
+    const movie = topMovies.find(m => m.title.toLowerCase() === t);
+    if (!movie) return res.status(404).json({
+        error: 'Movie not found'
+    });
+
+    const {
+        title,
+        description,
+        genre,
+        director
+    } = movie;
+    res.json({
+        title,
+        description,
+        genre,
+        director,
+        imageUrl: 'https://via.placeholder.com/300x450?text=Pathaan',
+        featured: false
+
+
+    });
+});
+
+// Return data about a genre (stub)
+app.get('/genres/:name', (req, res) => {
+    res.json({
+        name: req.params.name,
+        description: 'Genre description here (stub).'
+    });
+});
+
+// Director by name (stub)
+app.get('/directors/:name', (req, res) => {
+    res.json({
+        name: req.params.name,
+        bio: 'short bio (stub)',
+        birthYear: 1970,
+        deathYear: null
+    });
+});
+
+// Users: register (stub)
+app.post('/users', (req, res) => {
+    res.status(201).json({
+        message: 'User would be created (stub).',
+        received: req.body
+    });
+});
+
+// Users: update username (stub)
+app.put('/users/:username', (req, res) => {
+    res.json({
+        message: `User '${req.params.username}' would be updated (stub).`,
+        received: req.body
+    });
+});
+
+// Users: add favorite (stub)
+app.post('/users/:username/favorites/:movieId', (req, res) => {
+    res.json({
+        message: `Movie ${req.params.movieId} added to ${req.params.username} favorites (stub).`
+    });
+});
+
+// Users: remove favorite (stub)
+app.delete('/users/:username/favorites/:movieId', (req, res) => {
+    res.json({
+        message: `Movie ${req.params.movieId} removed from ${req.params.username} favorites (stub).`
+    });
+});
+
+// Users: deregister (stub)
+app.delete('/users/:username', (req, res) => {
+    res.json({
+        message: `User '${req.params.username}' deregistered (stub).`
+    });
 });
 
 // ---- 404 + error handlers ----

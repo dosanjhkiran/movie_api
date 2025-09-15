@@ -3,20 +3,177 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies API Documentation</title>
+    <title>Movie's API documentation</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100;
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        h2 {
+            margin: 20px;
+        }
+
+        code {
+            background: #f6f8fa;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-family: Consolas, Monaco, monospace;
+        }
+
+        pre {
+            background: #f6f8fa;
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .endpoint {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            background: #eef;
+            color: #333;
+            border: 1px solid #dde;
+        }
+
+        .errors h3 {
+            margin-top: 1rem;
+            color: #c0392b;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Welcome to My Movies API</h1>
-    <p>This API provides access to a list of my top 10 movies.</p>
+    <h1>Movie's API</h1>
+    <p>Welcome to the documentation of Movies API!</p>
+    <p><strong>Base URL:</strong> <code>http://localhost:8080</code></p>
+    <h2>Movies endpoints</h2>
+    <table style="width: 100%">
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th> HTTP Method</th>
+            <th>Request Body</th>
+            <th>response </th>
+        </tr>
+        <tr>
+            <td> Get a list of all Movies </td>
+            <td> /movies</td>
+            <td>GET </td>
+            <td> None </td>
+            <td> A JSON array holding data about all movies </td>
 
-    <h2>Endpoints</h2>
-    <ul>
-        <li><strong>GET /</strong> → Default welcome message</li>
-        <li><strong>GET /movies</strong> → Returns JSON list of movies</li>
-        <li><strong>GET /documentation.html</strong> → Loads this documentation file</li>
-    </ul>
+        </tr>
+        <tr>
+            <td> Return a movie by Title</td>
+            <td> /movie/[title]</td>
+            <td> GET</td>
+            <td> None</td>
+            <td> Movie object with title, description, genre, director, imageURL, featured</td>
+        </tr>
+        <tr>
+            <td>Returns a movie by a genre by name </td>
+            <td>/genres/[name]</td>
+            <td> GET</td>
+            <td> None</td>
+            <td> A JSON object with the genre’s name and description. Example:
+                { "name": "Thriller", "description": "Thrillers are characterized by excitement and suspense." }</td>
+        </tr>
+        <tr>
+            <td> Return data about Director</td>
+            <td> /directors/[name]</td>
+            <td> GET</td>
+            <td> None</td>
+            <td> Director object with birth year,bio, death year</td>
+        </tr>
+    </table>
+    <h2> USER endpoints</h2>
+    <table>
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th> HTTP Method</th>
+            <th>Request Body</th>
+            <th>Response </th>
+        </tr>
+        <tr>
+            <td> Register a new User</td>
+            <td>/users</td>
+            <td> POST</td>
+            <td>FORMAT:JSON {"username":"kiran_dosanjh","email":"kiran@example.com","password":"password123"}</td>
+            <td> confirmation message of created user</td>
+        </tr>
+        <tr>
+            <td>Update User Informtaion</td>
+            <td> /users/[username]</td>
+            <td> PUT</td>
+            <td> username(current)</td>
+            <td> updated username confirmation</td>
+        </tr>
+        <tr>
+            <td> Users to add there favourite movies</td>
+            <td> /users/:username/movies/:movieID</td>
+            <td>POST</td>
+            <td>None</td>
+            <td> Movies has been added to favourite</td>
+        </tr>
+        <tr>
+            <td> Users to remove a movie from their list of favorites </td>
+            <td>/users/:username/movies/:movieID</td>
+            <td> DELETE</td>
+            <td> None</td>
+            <td> Movie has been removed from favorite list</td>
+        </tr>
+        <tr>
+            <td> Deregister an existing user</td>
+            <td> /users/username</td>
+            <td> DELETE</td>
+            <td> None</td>
+            <td> User has been Deregistered</td>
+        </tr>
+    </table>
+
+    <h2>Errors</h2>
+    <div class="endpoint">
+        <h3>404 Not Found</h3>
+        <p>Returned when a route does not exist.</p>
+        <pre>{ "error": "Not Found" }</pre>
+    </div>
+    <div class="endpoint">
+        <h3>500 Internal Server Error</h3>
+        <p>Returned if an unhandled error occurs. Details are logged by the server.</p>
+        <pre>{ "error": "Internal Server Error" }</pre>
+    </div>
+
+    <h2>Spotlight on AI</h2>
+    <p>This documentation and endpoint scaffold were created with assistance from ChatGPT (coding-compatible AI) to
+        ensure clear endpoint definitions, consistent response shapes, and testability in Postman.</p>
 </body>
 
 </html>
